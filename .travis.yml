@@ -26,4 +26,4 @@ cache:
 
 script:
   - docker build -t rajdeepdas/notification-route-service .
- # - docker push rajdeepdas/notification-route-service
+  - docker push rajdeepdas/notification-route-service
