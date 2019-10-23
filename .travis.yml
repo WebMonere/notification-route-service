@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - '10'
+  - node
+
+services:
+  - postgresql
+  - docker
+  - rabbitmq
+addons:
+  apt:
+    packages:
+      - rabbitmq-server  
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin    
+before_script:
+      - psql -c 'create database webmonere_main;' -U postgres
+      - psql -c "CREATE USER webmonere WITH PASSWORD 'RajdeepDas0526';"  
+install: true
+install:
+- npm ci
+# keep the npm cache around to speed up installs
+cache:
+  directories:
+  - "$HOME/.npm"
+
+script:
+  - docker build -t rajdeepdas/notification-route-service .
+ # - docker push rajdeepdas/notification-route-service
