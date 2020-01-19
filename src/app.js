@@ -64,7 +64,10 @@ async function getAllUsersIdsformUrlId(access_token,url_id)
 
 async function finduser(access_token,user_id)
 {
-    const response = await fetch(dbserviceURL+'/users/'+user_id);
+	  const authop = {
+        headers: { authorization: 'Bearer'+' '+access_token  } 
+    }
+    const response = await fetch(dbserviceURL+'/users/'+user_id,authop);
     const user = await response.json();
     return user;
 
