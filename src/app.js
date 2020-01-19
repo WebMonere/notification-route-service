@@ -12,6 +12,8 @@ const messageQueueURL = process.env.MESSAGE_QUEUE_URL ||  'amqp://localhost'
 const emaiQueueName=process.env.EMAIL_QUEUE_NAME || 'main_email_queue'
 const emailQueueURL=process.env.EMAIL_QUEUE_URL || 'amqp://localhost'
 
+const dbserviceURL = process.env.DBSERVICE_URL || 'http://localhost'
+
 //Logger Config
 // create a custom timestamp format for log statements
 const SimpleNodeLogger = require('simple-node-logger'),
@@ -53,7 +55,7 @@ async function getAllUsersIdsformUrlId(access_token,url_id)
         headers: { authorization: 'Bearer'+' '+access_token  } 
     }
    
-    const response = await fetch('http://localhost/api/uids/'+url_id,authop);
+    const response = await fetch(dbserviceURL+'/api/uids/'+url_id,authop);
     const data = await response.json();
     return data;
   
@@ -62,7 +64,7 @@ async function getAllUsersIdsformUrlId(access_token,url_id)
 
 async function finduser(access_token,user_id)
 {
-    const response = await fetch('http://localhost/users/'+user_id);
+    const response = await fetch(dbserviceURL+'/users/'+user_id);
     const user = await response.json();
     return user;
 
